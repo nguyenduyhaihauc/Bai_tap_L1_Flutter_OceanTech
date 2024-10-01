@@ -18,7 +18,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail Product'),
+        title: const Text('Detail Product'),
       ),
       body: Column(
         children: [

@@ -9,17 +9,11 @@ import 'package:flutterlone/screen/widget/text_field_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class HomeProductScreen extends StatelessWidget {
-  const HomeProductScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const HomeGridProduct();
-  }
-}
-
 class HomeGridProduct extends StatefulWidget {
-  const HomeGridProduct({super.key});
+  // final Function(bool) toggleTheme; //Ham chuyen doi che do
+  // final bool isDarkMode; //Trang thai sang/ toi
+  //
+  // const HomeGridProduct({super.key, required this.toggleTheme, required this.isDarkMode});
 
   @override
   State<HomeGridProduct> createState() => _HomeGridProductState();
@@ -27,8 +21,10 @@ class HomeGridProduct extends StatefulWidget {
 
 class _HomeGridProductState extends State<HomeGridProduct> {
 
-  List<Product> productList = [];
+  List<Product> productList = []; //Tao list trong de chua danh sach
   final ProductRepository repository = ProductRepository();
+  // Bien luu tru trang thai cua che do sang toi
+  bool _isDarkMode = false;
 
   // Ham khoi tao ban dau
   @override
@@ -188,7 +184,7 @@ class _HomeGridProductState extends State<HomeGridProduct> {
                           width: 100,
                           fit: BoxFit.cover,
                         )
-                            : Text('No image selected'),
+                            : const Text('No image selected'),
                         const SizedBox(height: 10,),
                         ElevatedButton(
                             onPressed: () async {
@@ -211,7 +207,7 @@ class _HomeGridProductState extends State<HomeGridProduct> {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: Text('Cancel')
+                        child: const Text('Cancel')
                     ),
                     ElevatedButton(
                         onPressed: () async {
@@ -248,8 +244,8 @@ class _HomeGridProductState extends State<HomeGridProduct> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Delete product'),
-            content: Text('Are you sure you want to delete this product?'),
+            title: const Text('Delete product'),
+            content: const Text('Are you sure you want to delete this product?'),
             actions: [
               TextButton(
                   onPressed: () {
@@ -278,7 +274,20 @@ class _HomeGridProductState extends State<HomeGridProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('List Product'),
+        title: const Text('List Product'),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            // child: Switch(
+            //     value: widget.isDarkMode,
+            //     onChanged: widget.toggleTheme, //Goi ham thay doi che do sang toi
+            //     activeColor: Colors.white,
+            //     inactiveThumbColor: Colors.black26,
+            //     inactiveTrackColor: Colors.white,
+            //
+            // ),
+          )
+        ],
       ),
       body: StaggeredGridView.countBuilder(
         crossAxisCount: 2, // Số cột tổng, tương đương với 'crossAxisCount' trong GridView
@@ -332,7 +341,7 @@ class _HomeGridProductState extends State<HomeGridProduct> {
             ),
           );
         },
-        staggeredTileBuilder: (index) => StaggeredTile.fit(1), // Điều chỉnh số ô mà mỗi item chiếm, ở đây là 2 cột
+        staggeredTileBuilder: (index) => const StaggeredTile.fit(1), // Điều chỉnh số ô mà mỗi item chiếm, ở đây là 2 cột
         mainAxisSpacing: 4.0, // Khoảng cách giữa các item theo chiều dọc
         crossAxisSpacing: 4.0, // Khoảng cách giữa các item theo chiều ngang
       ),
