@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutterlone/data/model/task.dart';
-import 'package:flutterlone/screen/product/add_task_screen.dart';
+import 'package:flutterlone/screen/task/add_task_screen.dart';
 import 'package:flutterlone/screen/widget/snack_bar_widget.dart';
 import 'package:flutterlone/screen/widget/text_field_widget.dart';
 
@@ -37,39 +37,42 @@ class _TaskListScreenState extends State<TaskListScreen> {
               return Task.fromMap(doc.data() as Map<String, dynamic>);
             }).toList();
 
-            return ListView.builder(
-                itemCount: tasks.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      title: Text(tasks[index].name),
-                      subtitle: Text(tasks[index].time.toString()),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                _showEditDialog(context, tasks[index]);
-                              },
-                              icon: const Icon(
-                                Icons.edit,
-                                color: Colors.blue,
-                              )
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                _showDeleteDialog(context, tasks[index].id);
-                              },
-                              icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                              )
-                          )
-                        ],
+            return Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ListView.builder(
+                  itemCount: tasks.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: ListTile(
+                        title: Text(tasks[index].name),
+                        subtitle: Text(tasks[index].time.toString()),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  _showEditDialog(context, tasks[index]);
+                                },
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.blue,
+                                )
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  _showDeleteDialog(context, tasks[index].id);
+                                },
+                                icon: const Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                )
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                }
+                    );
+                  }
+              ),
             );
           }
       ),

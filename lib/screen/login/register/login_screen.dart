@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterlone/screen/product/home_product_screen.dart';
-import 'package:flutterlone/screen/product/register_screen.dart';
-import 'package:flutterlone/screen/product/task_list_screen.dart';
+import 'package:flutterlone/screen/login/register/register_screen.dart';
+import 'package:flutterlone/screen/task/task_list_screen.dart';
 import 'package:flutterlone/screen/widget/snack_bar_widget.dart';
 import 'package:flutterlone/screen/widget/text_field_widget.dart';
 

@@ -15,8 +15,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   DateTime taskTime = DateTime.now(); //Mac dinh la thoi gian hien tai
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Task'),
@@ -67,15 +71,27 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             ),
             ElevatedButton(
                 onPressed: () async {
-                  String id = _firestore.collection('tasks').doc().id; //Tao id tu dong
-                  Task newTask = Task(id: id, name: taskName, time: taskTime);
-                  await _firestore.collection('tasks').doc(id).set(newTask.toMap());
-                  showCustomSnackBar(
-                      context,
-                      'Add Task Successfully',
-                      Colors.green
-                  );
-                  Navigator.pop(context);
+                  if (taskName.isNotEmpty) {
+                    // tao id ngau nhien cho cong viec
+                    String id = _firestore.collection('tasks').doc().id;
+                    Task newTask = Task(id: id, name: taskName, time: taskTime);
+                    // Them cong viec vao Firestore
+                    await _firestore.collection('tasks').doc(id).set(newTask.toMap());
+                    showCustomSnackBar(
+                        context,
+                        'Add Task Successfully',
+                        Colors.green
+                    );
+                    Navigator.pop(context);
+                  } else {
+                  //   Hien thi thong bao neu ten cong viec bi bo trong
+                    showCustomSnackBar(
+                        context,
+                        'Please enter name task',
+                        Colors.red
+                    );
+                  }
+
                 },
                 child: const Text('Add')
             )
